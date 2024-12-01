@@ -81,6 +81,12 @@ export default function Home() {
     );
   }, [query, recipes]);
 
+  const handleDelete = (id: string) => {
+    setRecipes((prevRecipes) =>
+      prevRecipes.filter((recipe) => recipe.id !== id)
+    );
+  };
+
   const handleAddRecipe = () => {
     const recipeToAdd: Recipe = {
       ...newRecipe,
@@ -242,7 +248,7 @@ export default function Home() {
               <p>{recipe.description}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button>View Recipe</Button>
+            <Button variant={"destructive"} onClick={()=>handleDelete(recipe.id)}>Delete Recipe</Button>
               {recipe.vegan && <Badge variant="default">Vegan!</Badge>}
             </CardFooter>
           </Card>
