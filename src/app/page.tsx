@@ -13,6 +13,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { AlertDialogDemo } from "./delete_button";
 import {
   Dialog,
   DialogTrigger,
@@ -80,6 +81,12 @@ export default function Home() {
       )
     );
   }, [query, recipes]);
+
+  const handleDelete = (id: string) => {
+    setRecipes((prevRecipes) =>
+      prevRecipes.filter((recipe) => recipe.id !== id)
+    );
+  };
 
   const handleAddRecipe = () => {
     const recipeToAdd: Recipe = {
@@ -242,7 +249,8 @@ export default function Home() {
               <p>{recipe.description}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button>View Recipe</Button>
+            {/* <Button variant={"destructive"} onClick={()=>handleDelete(recipe.id)}>Delete Recipe</Button> */}
+            <AlertDialogDemo onDelete={handleDelete} id={recipe.id}/>
               {recipe.vegan && <Badge variant="default">Vegan!</Badge>}
             </CardFooter>
           </Card>
