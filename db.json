@@ -1,0 +1,67 @@
+{
+  "recipes": [
+    {
+      "id": "1",
+      "title": "Website TL;DR",
+      "description": "Talk about how you made your site and why you chose the tools you did. Briefly explain one challenge you experienced in setting up this site and how you overcame it.",
+      "answer": "I've used NextJS as the frontend framework with shadui as part of the react component. Deploying the project from localhost to Netlify is a bit of challenge to due build failure, but with perservance it all worked out.",
+      "important": true
+    },
+    {
+      "id": "2",
+      "title": "Criticism on my professional behavior",
+      "description": "What did you think of our service during the time you used it? Provide some constructive criticism or some features that impressed you.",
+      "answer": "First is the website's minimalists approach which is not too overcrowded with unnecessary images. I also appreciate the search function which allows me to filter out items quickly. Though it would be better if the filter would not be limited to title but the any of the words as long as it's present.",
+      "important": true
+    },
+    {
+      "id": "3",
+      "title": "Top 5 Skills",
+      "description": "Rank your 5 favorite and 5 least favorite activities",
+      "answer": "<strong>My Top 5 Favorite activities</strong><ul style='list-style-type: disc'><li>Create video tutorials to help teach users a specific feature or use case</li><li>Write and maintain Support Guides for our product</li><li>Dig through server logs to troubleshoot a customer's website behavior</li><li>Submit bug reports and potentially bug fixes</li><li>Work with the development team to help design a new feature based on feedback from customers</li><li>Develop a code example to share with a customer</li></ul> <br> <hr><strong>My Top 5 Least Favorite activities</strong><ul style='list-style-type: disc'><li>Respond to Netlify customers on Twitter</li><li>Manage a Support team</li><li>Suggest and champion improvements to the Support team's workflow</li><li>Help train and onboard new support teammates</li><li>Work with prospective customers to explain our service and the pricing model</li></ul>",
+      "important": true
+    },
+    {
+      "id": "4",
+      "title": "Techincal Documentation",
+      "description": "Provide a link to documentation for a technical/developer-focused product, which you think are well done, and explain why you think they are well done.",
+      "answer": "<a style='' target='_blank' href='https://docs.google.com/document/d/1f1Xi-IF_AZ3aEr3r11cpS52H-biVgWTXz59E4_B4ojk/edit?tab=t.0'>Link to documentation</a>",
+      "important": true
+    },
+    {
+      "id": "5",
+      "title": "Troubleshooting DNS",
+      "description": "Explain, in a couple of paragraphs, what you think are two major challenges around DNS configuration for less-technical customers hosting websites.",
+      "answer": "<ul style='list-style-type: disc; overflow-y: scroll; height: 400px; padding: 20px; border: 1px solid #ccc;'><li style='margin-bottom: 20px;'>This is what I think is the biggest hurdle when troubleshooting and configuring DNS is relaying to non-technical folks what is actually happening behind the scenes. When someone purchases a domain from GoDaddy, Hostinger, Netlify, etc, they are suddenly met with an overwhelming amount of information right off the bat. These records may include CNAME (Canonical Name) which redirects a DNS name to another DNS name. This may lead to frustration as a simple miss on the website settings and everything will go down the drain. I've seen startups struggling with this \"My site has been down for a couple of days or hours\" only to find out that the crucial part of the DNS record was deleted after the supposed \"fix\". The technical documentation provided by the domain seller assumes that the person trying to avail their services has a knowledge of basic networking, which unfortunately small business owners do not have.</li><li>Second major problem is the troubleshooting part, which takes around an hour or 48 hours to complete, depending on the complexity. During those downtime a user may feel overwhelmed checking if they missed some configurations on their end. The longer the wait the longer the business loses its traffic, just saying \"Our services are down for the next 24-48 hours\" isn't reassuring advice. Even worse, different people might see different results during propagation - the site owner sees their old site, their customer sees an error page, and their developer sees the new site working perfectly. This inconsistency makes it nearly impossible for non-technical users to confidently troubleshoot DNS issues on their own, leading to a lot of unnecessary panic and support tickets that could be avoided with better user education and clearer status indicators.</li></ul>",
+      "important": true
+    },
+    {
+      "id": "6",
+      "title": "Customer's Query",
+      "description": "A customer writes in to Support saying simply that their “site won't build”. You have access to their build logs, and there you see this error: Build failed due to a user error: Build script returned non-zero exit code: 2. You have no more information than this and the site's source repository is private so you cannot test the build yourself. How would you troubleshoot this issue? What steps would you take? Also, please compose your best customer-facing first response.",
+      "answer":"<div style='overflow-y: scroll; height: 500px; padding: 20px; border: 1px solid #ccc;'>Hi there! <br><br>Thank you for reaching out about your build issue. I can see that you are having an issue with building your site with error code 2. I'll be more than willing to help you out with this.<br><br>The error code can indicate multiple issues, most common ones are with your build script or the application's dependencies. To pinpoint the exact cause of this issue, can you please check a few things for me?<br><br><ul><li>Have you made some changes on your code base recently? Or maybe tweaked some configuration settings, build settings or added some dependencies?</li><li>When running the application locally, does it issue the same error? Can you please share a screenshot of the build command?</li><li>Can we also check if the environment variables (.env) are not missing in the repository? Some of the data found in the .env file may not be loaded properly, hence, the error code.</li></ul><br>I have reviewed your build logs to identify any specific error messages that occurred before the build failed. Most often than not the real issue appears above the error code.<br><br>If you have made some recent changes on your end, please let me know. That way I am able to pinpoint the error on your build. Prior to the error code can we confirm that the application is running without any issue? In the meantime, I am investigating common causes for this type of build failure and will have some specific solutions ready.<br><br>I know it is frustrating for the website to keep failing during build. But rest assured that I will prioritize this in the next few hours and will get back to you with the optimal solution.<br><br>Do let me know if you have any questions.<br><br>Thank you very much,<br>Leo A.<br>Technical Support Specialist</div>",
+      "important": true
+    },
+    {
+      "id": "7",
+      "title": "Netlify routes 300 and 200",
+      "description": "How would you set up an http 301 status redirect from “/netlify/anything” on your site, to https://www.google.com/search?q=anything. Please provide the redirect formatting here. Now, how about a proxy redirect? Please add that proxy redirect rule directly to your site. (Please add the proxy redirect to your website!)",
+      "answer":"<div style='overflow-y: scroll; width:400px; height: 400px; border: 1px solid #ccc;'><h3>Below are the steps on how to achieve 301 reroute from \"netlify/anything\"</h3><br><h4>1. HTTP 301 request</h4><p>For a more direct approach from /netlify/anything to Google search to my _redirects file in the public folder. Update your .toml file as shown below.</p><br><pre style='background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto;'>[[redirects]]<br>from =\"/netlify\"<br>to=\"https://www.google.com/search?q=anything\"<br>status = 301</pre><br><h4>2. Proxy redirect</h4><p>Same with the above approach but instead of 301 status we changed this to 200. As shown below.</p><br><pre style='background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto;'>[[redirects]]<br>from =\"/netlify\"<br>to=\"https://www.google.com/search?q=anything\"<br>status = 200</pre></div>",
+      "important": true
+    },
+    {
+      "id": "8",
+      "title":"Netlify Function",
+      "description": "Please attempt to deploy a function on our service. This need not be complicated. It could be 'Hello World'. Note that failure to deploy is not failing the exercise! Whether you have trouble or not, please describe what you experienced and how you attempted to troubleshoot any issues you encountered.",
+      "answer":"<div style='overflow-y: scroll; width:400px; height: 400px; border: 1px solid #ccc;'><p>Successfully integrated netlify's function in the source code. Attempted to recreate a simple GET request and display its message after successfully retrieved.</p><br><h4>What I did:</h4><ul><li>Install netlify-cli via npm package; using this script. <code>npm install --save-dev netlify-cli</code>. Doing this will ensure that all my dependencies are in sync with the new one.</li><li>Created a simple api call and add it to <code>./netlify/functions-internal/&lt;name-of-the-script&gt;</code></li><li>Run your local netlify app via this command <code>netlify dev</code>.</li><li>A url will be given for you to access in my case <code>localhost:8888</code>.</li><li>To access the function proceed to <code>localhost:8888/.netlify/functions/&lt;name-of-the-script&gt;</code></li></ul><br><h4>Challenges I encountered during build</h4><ul><li>Main head is not up-to-date resulting in giving an outdated look of the site. To troubleshoot this make sure that your main branch is up-to-date based on your recent code changes.</li><li>Function cannot be found when deployed. Commonly known error, but this is easily fixed if you placed your function in the appropriate directory. In this case <code>.netlify/functions-internal</code>.</li></ul></div>",
+      "important": true
+    },
+    {
+      "id": "9",
+      "title":"Netlify Escalation",
+      "description": "We understand you don't know anything about our internal procedures at this stage, but we want you to explain at a high level how you'd react to this situation: You receive a report of a severe security issue on www.netlify.com. You can't immediately confirm the report, so what steps might you take to investigate or substantiate the report? What might you say to the reporter, even though we haven't confirmed their assertion yet, that will instill confidence that our business is very concerned about security? You believe there is a reasonable chance the report is correct and the problem is very large and impactful. How might you escalate?",
+      "answer":"<div style='overflow-y: scroll; width:400px; height: 400px; padding: 20px; border: 1px solid #ccc;'>Hi there!<br><br>Thank you for bringing this security concern into our attention. We take all security concerns very seriously as this might cause a bigger impact; we'll go ahead and investigate further on this.<br><br>Our security and infrastructure specialists have been notified of the said concern and has been flagged as the highest priority. While we are waiting for their feedback. I will be needing some information to better understand the scope of this issue.<br><br><ul><li>When did we notice this security issue? Was this after you deployed your build?</li><li>Any error message you are seeing?</li><li>Do you experience heavy latency while accessing your site?</li><li>Does it give a 404 error when clicking on a certain page of your site?</li></ul><br>Rest assured that our team is working on fixing this as soon as possible. For the meantime, we'll be needing 24-48 hours to resolve this. Once we've deployed a fix, we will notify you right away.<br><br>Please let me know if you have any other questions.<br><br>Thank you very much,<br>Leo A<br>Tech Support Specialist</div><div style='margin-top:10px;overflow-y: scroll; width:400px; height: 300px; padding: 15px; border: 1px solid #ddd;'><h4>Escalation process:</h4><ul><li>Notify the infrastructure team via Slack, Email or direct message.</li><li>Page the dev team for any builds that failed during merge.</li><li>Create an incident report and context of the issue.</li><li>Create a post-mortem report citing the incident and how it was fixed.</li></ul></div>",
+      "important": true
+    }
+  ]
+}
