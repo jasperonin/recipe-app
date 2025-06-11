@@ -28,8 +28,6 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 interface Recipe {
   title: string;
-  image: string;
-  time: number;
   description: string;
   important: boolean;
   id: string;
@@ -52,8 +50,6 @@ export default function Home() {
   const [alertVisible, setAlertVisible] = useState(false); // Alert state
   const [newRecipe, setNewRecipe] = useState<Partial<Recipe>>({
     title: "",
-    image: "",
-    time: 0,
     description: "",
     important: false,
     answer: "",
@@ -79,7 +75,7 @@ export default function Home() {
   useEffect(() => {
     setFilteredRecipes(
       recipes.filter((recipe) =>
-        recipe.title
+        recipe.title.toLowerCase().includes(query.toLowerCase())
       )
     );
   }, [query, recipes]);
@@ -93,8 +89,7 @@ export default function Home() {
   const handleAddRecipe = () => {
     const recipeToAdd: Recipe = {
       ...newRecipe,
-      id: String(recipes.length + 1), // Generate a simple unique ID
-      time: Number(newRecipe.time), // Ensure time is a number
+      id: String(recipes.length + 1),
     } as Recipe;
 
     setRecipes((prevRecipes) => [...prevRecipes, recipeToAdd]);
@@ -102,8 +97,6 @@ export default function Home() {
     // Clear input fields after submission
     setNewRecipe({
       title: "",
-      image: "",
-      time: 0,
       description: "",
       important: false,
     });
@@ -144,9 +137,7 @@ export default function Home() {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add New Post</DialogTitle>
-              <DialogDescription>
-                Fill here
-              </DialogDescription>
+              <DialogDescription>Fill here</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
@@ -205,10 +196,7 @@ export default function Home() {
           <Card key={recipe.id} className="flex flex-col justify-between">
             <CardHeader className="flex-row gap-4 items-center">
               <Avatar>
-                <AvatarImage
-                  src={`/img/${recipe.image}`}
-                  className="h-5 w-5 sm:h-25 sm:w-25 md:h-25 md:w-25 lg:h-60 lg:w-72 rounded-3xl mx-auto"
-                />
+                <AvatarImage className="h-5 w-5 sm:h-25 sm:w-25 md:h-25 md:w-25 lg:h-60 lg:w-72 rounded-3xl mx-auto" />
                 <AvatarFallback>{recipe.title.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <div>
@@ -233,7 +221,11 @@ export default function Home() {
                       <Label htmlFor="answer" className="sr-only">
                         Answer
                       </Label>
-                      <p id="answer" className="text-justify" dangerouslySetInnerHTML={{ __html: recipe.answer}}></p>
+                      <p
+                        id="answer"
+                        className="text-justify"
+                        dangerouslySetInnerHTML={{ __html: recipe.answer }}
+                      ></p>
                     </div>
                   </div>
                   <DialogFooter className="sm:justify-start">
