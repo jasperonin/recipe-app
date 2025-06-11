@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
   CardFooter,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -17,6 +16,7 @@ import { AlertDialogDemo } from "./delete_button";
 import {
   Dialog,
   DialogTrigger,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogFooter,
@@ -31,8 +31,9 @@ interface Recipe {
   image: string;
   time: number;
   description: string;
-  vegan: boolean;
+  important: boolean;
   id: string;
+  answer: string;
 }
 
 async function fetchRecipe(): Promise<Recipe[]> {
@@ -54,7 +55,8 @@ export default function Home() {
     image: "",
     time: 0,
     description: "",
-    vegan: false,
+    important: false,
+    answer: "",
   });
 
   const [dialogOpen, setDialogOpen] = useState(false); // Dialog state
@@ -77,7 +79,7 @@ export default function Home() {
   useEffect(() => {
     setFilteredRecipes(
       recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(query.toLowerCase())
+        recipe.title
       )
     );
   }, [query, recipes]);
@@ -103,7 +105,7 @@ export default function Home() {
       image: "",
       time: 0,
       description: "",
-      vegan: false,
+      important: false,
     });
     setDialogOpen(false);
     setAlertVisible(true);
@@ -111,18 +113,18 @@ export default function Home() {
   };
 
   if (loading) {
-    return <p className="text-center my-10">Loading recipes...</p>;
+    return <p className="text-center my-10">Loading question and answers...</p>;
   }
 
   return (
     <main>
-      <div className="text-5xl my-5 text-center">Recipe App</div>
+      <div className="text-5xl my-5 text-center">Share a post</div>
       {alertVisible && (
         <div className="mx-auto my-4 max-w-md">
           <Alert>
-            <AlertTitle>Recipe Added!</AlertTitle>
+            <AlertTitle>Added!</AlertTitle>
             <AlertDescription>
-              Your recipe has been successfully added.
+              Post has been added successfully!
             </AlertDescription>
           </Alert>
         </div>
@@ -130,26 +132,26 @@ export default function Home() {
       <div className="max-w-xl mx-auto mb-5 flex space-x-5">
         <Input
           type="text"
-          placeholder="Search for a recipe..."
+          placeholder="Search here..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg"
         />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">Add Recipe</Button>
+            <Button variant="outline">Add a Post</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Add New Recipe</DialogTitle>
+              <DialogTitle>Add New Post</DialogTitle>
               <DialogDescription>
-                Fill out the details of the recipe.
+                Fill here
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">
-                  Recipe Title
+                  Title
                 </Label>
                 <Input
                   id="title"
@@ -158,36 +160,7 @@ export default function Home() {
                   onChange={(e) =>
                     setNewRecipe({ ...newRecipe, title: e.target.value })
                   }
-                  placeholder="Enter Recipe Title"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="image" className="text-right">
-                  Image
-                </Label>
-                <Input
-                  id="image"
-                  defaultValue={newRecipe.image}
-                  className="col-span-3"
-                  onChange={(e) =>
-                    setNewRecipe({ ...newRecipe, image: e.target.value })
-                  }
-                  placeholder="Image Path"
-                />
-              </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="time" className="text-right">
-                  Time
-                </Label>
-                <Input
-                  id="time"
-                  defaultValue={newRecipe.time}
-                  className="col-span-3"
-                  onChange={(e) =>
-                    setNewRecipe({ ...newRecipe, time: Number(e.target.value) })
-                  }
-                  placeholder="Time to prepare in minutes"
+                  placeholder="Enter Title"
                 />
               </div>
 
@@ -206,15 +179,15 @@ export default function Home() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="vegan" className="text-right">
-                  Vegan
+                <Label htmlFor="important" className="text-right">
+                  important
                 </Label>
                 <Input
-                  id="vegan"
+                  id="important"
                   type="checkbox"
-                  checked={newRecipe.vegan}
+                  checked={newRecipe.important}
                   onChange={(e) =>
-                    setNewRecipe({ ...newRecipe, vegan: e.target.checked })
+                    setNewRecipe({ ...newRecipe, important: e.target.checked })
                   }
                   className="col-span-3"
                 />
@@ -227,7 +200,7 @@ export default function Home() {
         </Dialog>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-5 sm:mx-10 lg:mx-60 my-10 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-5 sm:mx-10 lg:mx-5 my-1 gap-6">
         {filteredRecipes.map((recipe) => (
           <Card key={recipe.id} className="flex flex-col justify-between">
             <CardHeader className="flex-row gap-4 items-center">
@@ -240,18 +213,43 @@ export default function Home() {
               </Avatar>
               <div>
                 <CardTitle>{recipe.title}</CardTitle>
-                <CardDescription>
-                  {recipe.time} mins to prepare.
-                </CardDescription>
               </div>
             </CardHeader>
             <CardContent>
-              <p>{recipe.description}</p>
+              <p className="text-justify">{recipe.description}</p>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="my-2 mx-auto">
+                    Answer
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>My Answer</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex items-center gap-2">
+                    <div className="grid flex-1 gap-2">
+                      <Label htmlFor="answer" className="sr-only">
+                        Answer
+                      </Label>
+                      <p id="answer" className="text-justify" dangerouslySetInnerHTML={{ __html: recipe.answer}}></p>
+                    </div>
+                  </div>
+                  <DialogFooter className="sm:justify-start">
+                    <DialogClose asChild>
+                      <Button type="button" variant="secondary">
+                        Close
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </CardContent>
             <CardFooter className="flex justify-between">
-            {/* <Button variant={"destructive"} onClick={()=>handleDelete(recipe.id)}>Delete Recipe</Button> */}
-            <AlertDialogDemo onDelete={handleDelete} id={recipe.id}/>
-              {recipe.vegan && <Badge variant="default">Vegan!</Badge>}
+              {/* <Button variant={"destructive"} onClick={()=>handleDelete(recipe.id)}>Delete Recipe</Button> */}
+              <AlertDialogDemo onDelete={handleDelete} id={recipe.id} />
+              {recipe.important && <Badge variant="default">Important!</Badge>}
             </CardFooter>
           </Card>
         ))}
