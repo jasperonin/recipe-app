@@ -35,11 +35,18 @@ interface Recipe {
 }
 
 async function fetchRecipe(): Promise<Recipe[]> {
-  const result = await fetch("http://localhost:3001/recipes");
+const result = await fetch("https://jasperonin.github.io/recipe-app/db.json");
   if (!result.ok) {
     throw new Error("Failed to fetch recipes");
   }
-  return result.json();
+  const data = await result.json();
+  
+  if (!Array.isArray(data.recipes)) {
+    console.error("Invalid data structure:", data);
+    throw new Error("Expected `recipes` to be an array");
+  }
+
+  return data.recipes;
 }
 
 export default function Home() {
