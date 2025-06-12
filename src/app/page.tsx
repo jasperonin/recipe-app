@@ -118,7 +118,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="text-5xl my-5 text-center">Share a post</div>
+      <div className="text-4xl my-5 text-center">Support Response Submission</div>
       {alertVisible && (
         <div className="mx-auto my-4 max-w-md">
           <Alert>
@@ -139,7 +139,7 @@ export default function Home() {
         />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">Add a Post</Button>
+            {/* <Button variant="outline">Add a Post</Button> */}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
