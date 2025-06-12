@@ -19,7 +19,6 @@ export function AlertDialogDemo({ onDelete, id }: AlertDemoProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
